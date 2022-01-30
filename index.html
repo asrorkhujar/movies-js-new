@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movies</title>
+  <link rel="stylesheet" href="css/bootstrap5.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+
+  <style>
+    .movie__img {
+      object-fit: cover;
+    }
+  </style>
+</head>
+
+<body class="bg-dark">
+
+  <div class="movies container-xl">
+    <header class="py-3 mb-3">
+      <h1 class="site-header__heading text-white bg-gradient shadow py-2 px-5 rounded-3 display-3 d-block text-center">Movies</h1>
+    </header>
+
+    <section>
+      <h2 class="visually-hidden">Movies list</h2>
+
+      <form class="row mb-3 js-movie-search-form" action="https://echo.htmlacademy.ru" method="GET">
+        <div class="col-md-2">
+          <input class="form-control js-movie-search-input" type="search" name="title" placeholder="Movie title"
+          aria-label="Movie title">
+        </div>
+        <div class="col-md-3 mt-2 mt-md-0">
+          <select class="form-control" name="genre" aria-label="Genre">
+            <option value="All">Category</option>
+          </select>
+        </div>
+        <div class="col-md-2 mt-2 mt-md-0">
+          <input class="form-control js-start-year-input" type="number" name="min_year" aria-label="Start year"
+          placeholder="Start year">
+        </div>
+        <div class="col-md-2 mt-2 mt-md-0">
+          <input class="form-control js-end-year-input" type="number" name="max_year" aria-label="End year"
+          placeholder="End year">
+        </div>
+        <div class="col-md-2 mt-2 mt-md-0">
+          <select class="form-control js-sort-select" name="sort" aria-label="Sorting">
+            <option value="" selected disabled>Sorting by...</option>
+            <option value="az">A-Z</option>
+            <option value="za">Z-A</option>
+            <option value="rating_asc">Rating ▲</option>
+            <option value="rating_desc">Rating ▼</option>
+            <option value="year_asc">Year (old-new)</option>
+            <option value="year_desc">Year (new-old)</option>
+          </select>
+        </div>
+        <div class="col-md-1 mt-2 mt-md-0">
+          <button class="btn btn-info text-white" type="submit">Search</button>
+        </div>
+        <div class="col-md-3 mt-2 mt-md-0">
+          <button class="btn btn-success js-watch-list-button mt-3" type="button" data-bs-toggle="modal"
+          data-bs-target="#modal-watch-list">Watch list</button>
+        </div>
+      </form>
+      <p class="bg-warning p-2 rounded d-inline-block">Search results: <span class="movies__result">0</span>
+      </p>
+      <div class="movies__list row">
+
+        <p class="text-center">Movies are coming... Please, wait.</p>
+      </div>
+    </section>
+
+
+
+    <!-- MODALS -->
+    <div class="movie-info-modal modal fade" id="more-info-modal">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="row align-items-center mb-3">
+              <div class="col-lg-5">
+                <h3 class="movie-info-modal__title mb-md-0">Movie</h3>
+              </div>
+              <div class="col-lg-7">
+                <div class="d-flex flex-wrap small">
+                  <span class="d-flex align-items-center me-3">
+                    <img class="me-1" src="img/icon-star.svg" alt="" width="16" height="16">
+                    <span class="movie-info-modal__rating">7.7</span>
+                  </span>
+                  <span class="d-flex align-items-center me-3">
+                    <img class="me-1" src="img/icon-calendar-event.svg" alt="" width="16" height="16">
+                    <span class="movie-info-modal__year">2001</span>
+                  </span>
+                  <span class="d-flex align-items-center ">
+                    <img class="me-1" src="img/icon-clock.svg" alt="" width="16" height="16">
+                    <span class="movie-info-modal__duration">1 hr 20 min</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-5 mb-3 mb-lg-0">
+                <div class="ratio ratio-16x9">
+                  <iframe class="movie-info-modal__iframe d-block w-100 border-0 rounded"
+                  src="https://www.youtube-nocookie.com/embed/j51ae5KM7N0" title="YouTube video player"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+                </div>
+              </div>
+              <div class="col-lg-7">
+                <p class="movie-info-modal__categories">Thriller, Action, Comedy</p>
+                <p class="movie-info-modal__summary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
+                  itaque impedit doloribus! Aperiam vero nostrum quaerat quos magnam molestiae hic officia eveniet
+                  similique eligendi. Voluptate obcaecati deserunt veritatis porro laboriosam?</p>
+                  <div class="d-flex align-items-center">
+                    <a class="movie-info-modal__imdb-link me-5" href="#" target="_blank">Show on IMDb</a>
+                    <button class="btn btn-outline-success btn-sm js-bookmark-button">Bookmark</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Watch-list-modal -->
+      <div class="watchlist-modal modal fade" id="modal-watch-list">
+        <div class="modal-dialog modal-md">
+          <div class="modal-content">
+            <div class="modal-body">
+              <h3 class="watch-list-title text-center">Watch list</h3>
+              <ul class="watchlist-modal__list list-group">
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TEMPLATES -->
+      <template id="movies-item-template">
+        <div class="movies__item col-sm-6 col-md-4 mb-4">
+          <div class="movie card h-100">
+            <img class="movie__img card-img-top" src="https://picsum.photos/300/170" alt="rasm" width="300" height="170">
+            <div class="card-body d-flex flex-column">
+              <h3 class="movie__title h4 mb-0 card-title mb-3">Movie title</h3>
+              <div class="d-flex flex-wrap justify-content-between mb-2 small">
+                <span class="d-flex align-items-center me-2">
+                  <img class="me-1" src="img/icon-star.svg" alt="" width="16" height="16">
+                  <span class="movie__rating">7.7</span>
+                </span>
+                <span class="d-flex align-items-center me-2">
+                  <img class="me-1" src="img/icon-calendar-event.svg" alt="" width="16" height="16">
+                  <span class="movie__year">2001</span>
+                </span>
+                <span class="d-flex align-items-center ">
+                  <img class="me-1" src="img/icon-clock.svg" alt="" width="16" height="16">
+                  <span class="movie__duration">1 hr 20 min</span>
+                </span>
+              </div>
+              <p class="movie__categories card-text">Thriller, Comedy, Action</p>
+              <div class="d-flex mt-auto">
+                <button class="flex-grow-1 btn btn-info btn-sm me-3 text-white js-more-info-button" data-bs-toggle="modal"
+                data-bs-target="#more-info-modal">More info</button>
+                <button class="flex-grow-1 btn btn-outline-secondary btn-sm js-bookmark-button">Bookmark</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <script src="js/bootstrap5.bundle.min.js"></script>
+      <script src="js/movies-new.js"></script>
+      <script src="js/main.js"></script>
+    </body>
+
+    </html>
